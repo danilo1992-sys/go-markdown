@@ -1,0 +1,27 @@
+---
+import {getCollection, render} from 'astro:content'
+import Layout from "../../layouts/Layout.astro"
+
+export async function getStaticPaths() {
+  const go = await getCollection("Go")
+
+  return go.map((go) => ({
+    params: { id: go.id },
+    props: { go }
+  }))
+}
+
+const { go } = Astro.props
+const { title, description } = go.data
+const { Content } = await render(go)
+---
+
+<Layout title={title} data-pagefind-body>
+  <div class="p-8 max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-4 text-white text-center" transition:name=`hero-${go.id}`>{title}</h1>
+    <p class="text-gray-400 mb-8 text-center" transition:name=`description-${go.id}`>{description}</p>
+    <div class="prose prose-invert max-w-none text-white">
+      <Content />
+    </div>
+  </div>
+</Layout>

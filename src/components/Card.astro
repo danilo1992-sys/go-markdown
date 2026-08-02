@@ -1,0 +1,24 @@
+--- 
+import {getCollection} from 'astro:content'
+
+const Go = await getCollection('Go')
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 min-h-screen">
+  { Go.map(go => {
+    const {data, id} = go 
+    const {title, description} = data
+
+      return (
+      <a href={`/Go/${id}`}  class="bg-slate-950 hover:bg-slate-900 hover:scale-105 hover:border-accent hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 h-48 w-full">
+        <div class="card card-border backdrop-blur-xs cursor-pointer h-full w-full">
+          <div class="card-body">
+        <h2 class="card-title" transition:name=`hero-${id}`>{title}</h2>
+            <p transition:name=`description-${id}`>{description}</p>
+          </div>
+        </div>
+      </a>
+      )
+  })
+  }
+</div>

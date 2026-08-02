@@ -1,0 +1,24 @@
+--- 
+import Web from './icons/Web.astro'
+import Hashtag from './icons/Hashtag.astro'
+import Linkedin from './icons/Linkedin.astro'
+import Github from './icons/Github.astro'
+---
+
+<footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4">
+  <aside class="grid-flow-col items-center">
+    <Hashtag/>
+    <p>Copyright © {new Date().getFullYear()} - All right reserved - Danilo Caceres</p>
+  </aside>
+  <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end"> 
+    <a target="_blank" href="https://github.com/danilo1992-sys">
+      <Github/>
+    </a>
+    <a target="_blank" href="https://www.linkedin.com/in/danilo-caceres/">
+      <Linkedin/>
+    </a>
+    <a target="_blank" href="https://portfolio-astro-ven9.onrender.com/es/">
+      <Web />
+    </a>
+  </nav>
+</footer>

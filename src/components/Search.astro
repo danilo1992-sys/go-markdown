@@ -1,0 +1,43 @@
+---
+import PagefindUI from 'astro-pagefind/components/PagefindUI.astro';
+---
+
+<div id="search" class="w-full max-w-md">
+  <PagefindUI
+    placeholder="Buscar apuntes..."
+    class="block w-full"
+  />
+</div>
+
+<style is:global>
+  #search .pagefind-ui__search-input {
+    @apply w-full p-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+  #search .pagefind-ui__result {
+    @apply bg-slate-900 border border-slate-700 rounded-lg p-4 hover:bg-slate-800;
+  }
+  #search .pagefind-ui__result-title {
+    @apply text-accent font-semibold;
+  }
+  #search .pagefind-ui__result-excerpt {
+    @apply text-slate-300 text-sm mt-1;
+  }
+  #search .pagefind-ui__message {
+    @apply text-slate-500 text-center py-4;
+  }
+  #search .pagefind-ui__result-link {
+    @apply block;
+  }
+</style>
+
+<script>
+  // Re-inicializar PagefindUI después de cada transición de Astro
+  document.addEventListener('astro:after-swap', () => {
+    // PagefindUI se auto-inicializa si tiene data-pagefind-ui
+    const searchEl = document.getElementById('search');
+    if (searchEl && searchEl.querySelector('.pagefind-ui')) {
+      // Forzar re-render si es necesario
+      searchEl.querySelector('.pagefind-ui').dispatchEvent(new Event('pagefind-ui:refresh'));
+    }
+  });
+</script>
