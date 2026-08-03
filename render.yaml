@@ -5,14 +5,19 @@ services:
     buildCommand: |
       rm -rf src/content
       git clone https://github.com/danilo1992-sys/obsidian.git src/content
-      cd src/content
-      for f in *.md; do
-        case "$f" in
-          *"¿"*|*"?"*) mv "$f" "$(echo "$f" | sed 's/[¿?]//g; s/  */ /g; s/^ //; s/ $//')" ;;
-        esac
-      done
-      sed -i '/^id:/d;/^aliases:/d;/^  - /d;/^tags:/d' "Modulo Time.md"
-      cd ../..
+      python3 -c "
+import os, glob
+for f in glob.glob('src/content/*.md'):
+    name = os.path.basename(f)
+    new_name = name
+    for ch in ['¿','?','á','é','í','ó','ú','ñ','Á','É','Í','Ó','Ú','Ñ']:
+        new_name = new_name.replace(ch, '')
+    new_name = ' '.join(new_name.split())
+    if new_name != name:
+        os.rename(f, os.path.join('src/content', new_name))
+        print(f'Renamed: {name} -> {new_name}')
+"
+      sed -i '/^id:/d;/^aliases:/d;/^  - /d;/^tags:/d' "src/content/Modulo Time.md" 2>/dev/null || true
       npm install -g pnpm
       pnpm install --frozen-lockfile
       pnpm build
