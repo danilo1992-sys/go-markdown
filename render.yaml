@@ -3,8 +3,8 @@ services:
     name: go-markdown
     runtime: static
     buildCommand: |
-      rm -rf src/content/Go
-      git clone https://github.com/danilo1992-sys/obsidian.git src/content/Go
+      rm -rf src/content
+      git clone https://github.com/danilo1992-sys/obsidian.git src/content
       npm install -g pnpm
       pnpm install --frozen-lockfile
       pnpm build
