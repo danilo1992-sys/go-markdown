@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: go-markdown
+    runtime: static
+    buildCommand: |
+      git submodule update --init --recursive
+      npm install -g pnpm
+      pnpm install --frozen-lockfile
+      pnpm build
+    staticPublishPath: dist
