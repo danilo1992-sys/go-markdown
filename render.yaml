@@ -5,6 +5,9 @@ services:
     buildCommand: |
       rm -rf src/content
       git clone https://github.com/danilo1992-sys/obsidian.git src/content
+      mv "src/content/¿ Que es GO ?.md" "src/content/Que es GO.md"
+      mv "src/content/Funciones anónimas.md" "src/content/Funciones anonimas.md"
+      sed -i '/^id:/d;/^aliases:/d;/^  - Modulo/d;/^tags:/d' "src/content/Modulo Time.md"
       npm install -g pnpm
       pnpm install --frozen-lockfile
       pnpm build
