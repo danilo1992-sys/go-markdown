@@ -1,14 +1,16 @@
 ---
 import Go from './icons/Go.astro'
 import Search from 'astro-pagefind/components/Search.astro'
+import ChangeTheme from './icons/ChangeTheme.astro'
+import Repo from './Repo.astro'
 ---
 
 <div class="flex items-center gap-4 p-4 bg-base-100 shadow-sm">
   <a href="/" data-astro-transition="false" class="btn btn-ghost btn-circle text-xl cursor-pointer">
     <Go class="w-16 h-16" /> 
   </a>
-  Apuntes Go
-  <div class="flex-1"></div>
+  <span class="text-base-content">Apuntes Go</span>
+  <div class="w-14"></div>
   <div class="w-80">
     <Search
       class="pagefind-ui"
@@ -19,8 +21,15 @@ import Search from 'astro-pagefind/components/Search.astro'
       excerptLength={30}
     />
   </div>
-</div>
 
+  <div class="w-60"></div>
+  <div class="flex ">
+    <ChangeTheme/>
+  </div>
+  <div class="flex justify-around">
+    <Repo/>
+  </div>
+</div>
 <script>
   // Re-inicializar PagefindUI después de cada transición de Astro
   document.addEventListener('astro:after-swap', () => {

@@ -1,0 +1,55 @@
+---
+import SunIcon from './Sun.astro'
+import MoonIcon from './Moon.astro'
+---
+
+<label class="flex cursor-pointer gap-2">
+  <SunIcon/>
+  <input type="checkbox" value="dark" class="toggle theme-controller" />
+  <MoonIcon/>
+</label>
+
+<script is:inline>
+  (function () {
+    const getThemePreference = () => {
+      if (typeof localStorage !== "undefined") {
+        return localStorage.getItem("theme") ?? "dark";
+      }
+      return "dark";
+    };
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute("data-theme", theme);
+      const toggle = document.querySelector(".theme-controller");
+      if (toggle) {
+        toggle.checked = theme === "dark";
+      }
+    };
+
+    const initToggle = () => {
+      const toggle = document.querySelector(".theme-controller");
+      if (!toggle) return;
+
+      toggle.checked = getThemePreference() === "dark";
+
+      toggle.addEventListener("change", (e) => {
+        const theme = e.target.checked ? "dark" : "light";
+        localStorage.setItem("theme", theme);
+        applyTheme(theme);
+      });
+    };
+
+    applyTheme(getThemePreference());
+    initToggle();
+
+    document.addEventListener("astro:page-load", () => {
+      applyTheme(getThemePreference());
+      initToggle();
+    });
+
+    document.addEventListener("astro:after-swap", () => {
+      applyTheme(getThemePreference());
+      initToggle();
+    });
+  })();
+</script>
