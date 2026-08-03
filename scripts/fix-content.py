@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 import os, glob
 
-for f in glob.glob('src/content/*.md'):
+for f in glob.glob('src/content/Go/*.md'):
     name = os.path.basename(f)
     new_name = name
     for ch in ['¿', '?', 'á', 'é', 'í', 'ó', 'ú', 'ñ', 'Á', 'É', 'Í', 'Ó', 'Ú', 'Ñ']:
         new_name = new_name.replace(ch, '')
     new_name = ' '.join(new_name.split())
     if new_name != name:
-        os.rename(f, os.path.join('src/content', new_name))
+        os.rename(f, os.path.join('src/content/Go', new_name))
         print(f'Renamed: {name} -> {new_name}')
 
 # Clean Modulo Time frontmatter
-mod_file = 'src/content/Modulo Time.md'
+mod_file = 'src/content/Go/Modulo Time.md'
 if os.path.exists(mod_file):
     with open(mod_file, 'r') as fh:
         lines = fh.readlines()
