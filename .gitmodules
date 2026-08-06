@@ -1,3 +1,3 @@
-[submodules "src/content/Go"]
+[submodule "src/content"]
   path = src/content
   url = "https://github.com/danilo1992-sys/obsidian.git"
