@@ -2,12 +2,40 @@
 import {getCollection} from 'astro:content'
 
 const Go = await getCollection('Go')
+
+function extractPreview(body = '') {
+  const lines = body.split('\n')
+  let title = ''
+  let description = ''
+  let inCode = false
+
+  for (const line of lines) {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('```')) inCode = !inCode
+    if (inCode) continue
+
+    if (!title && trimmed.startsWith('#')) {
+      title = trimmed.replace(/^#+\s*/, '')
+      continue
+    }
+    if (title && !description && trimmed && !trimmed.startsWith('#')) {
+      description = trimmed
+      break
+    }
+  }
+
+  return { title: title || 'Sin título', description: description || 'Sin descripción' }
+}
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 min-h-screen">
   { Go.map(go => {
-    const {data, id} = go 
-    const {title, description} = data
+    const {data, id, body} = go 
+    const {title: dataTitle, description: dataDescription} = data
+    const {title, description} = {
+      title: dataTitle || extractPreview(body).title,
+      description: dataDescription || extractPreview(body).description,
+    }
 
       return (
       <a href={`/Go/${id}`}  class="bg-base-200 hover:bg-base-300 hover:scale-105 hover:border-accent hover:shadow-lg hover:shadow-accent/20 transition-all duration-300 h-48 w-full">
