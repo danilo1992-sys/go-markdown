@@ -1,5 +1,5 @@
 [build]
-  command = "rm -rf src/content && git clone --depth 1 https://github.com/danilo1992-sys/obsidian.git src/content && pnpm build"
+  command = "rm -rf src/content && curl -sL https://github.com/danilo1992-sys/obsidian/archive/refs/heads/master.tar.gz | tar xz && mv obsidian-master src/content && pnpm build"
   publish = "dist"
 
 [build.environment]
