@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "pnpm pull && astro dev",
     "pull": "git -C src/content pull origin master",
-    "build": "astro build",
+    "build": "pnpm pull && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
