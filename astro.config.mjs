@@ -34,6 +34,7 @@ function transformMockupCode(html) {
 }
 
 export default defineConfig({
+  trailingSlash: "never",
   vite: {
     plugins: [
       tailwindcss(),
