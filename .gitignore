@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# netlify local state
+.netlify/
+
+# local artifacts
+/index.html
+/report.txt
